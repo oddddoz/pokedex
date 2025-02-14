@@ -58,24 +58,8 @@ function getPokemons() {
 	return $pokemons;
 }
 
-function addPokemon($name) {
-	$pokemon_exists = false;
-
-	$pokemons = getPokemons();
-
-	foreach ($pokemons as $pokemon) {
-		if ($pokemon[0] == $name) {
-			$pokemon_exists = true;
-			break;
-		}
-	}
-
-	if ($pokemon_exists) {
-		return "Pokemon already exists";
-	}
-
+function retrieve_pokemon_data($name) {
 	$curl = curl_init();
-
 	curl_setopt_array($curl, array(
 	  CURLOPT_URL => "https://tyradex.app/api/v1/pokemon/" . $name,
 	  CURLOPT_CUSTOMREQUEST => "GET",
@@ -87,12 +71,10 @@ function addPokemon($name) {
 	));
 
 	$response = curl_exec($curl);
-
 	$data = json_decode($response, true);
-	$err = $data["status"]; 
-	
-	if ($err !== null) {
-		return "Pokemon not found";
+	$err = $data["status"];
+	if (isset($err)) {
+		throw new Exception("Pokemon not found");
 	}
 
 	$name = $data["name"]["fr"];
@@ -102,11 +84,44 @@ function addPokemon($name) {
 	foreach ($data["types"] as $type) {
 		array_push($types, $type["name"]);		
 	}
+	
+	return [$name, $types, $img_url];
+};
 
+function does_pokemon_exist($name) {
+	$pokemons = getPokemons();
+
+	foreach ($pokemons as $pokemon) {
+		if (strtolower($pokemon[0]) == strtolower($name)) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function save_pokemon_to_csv($name, $types, $img_url) {
 	$file = fopen("pokemons.csv","a");
 
 	fputcsv($file, [$name, $types[0], $types[1], $img_url]);
 
 	fclose($file);
+}
+
+function addPokemon($name) {
+	try {
+		$pokemon_exists = does_pokemon_exist($name);
+
+		if ($pokemon_exists) {
+			throw new Exception("Pokemon already exists");
+		}
+
+		list($name, $types, $img_url) = retrieve_pokemon_data($name);
+
+		save_pokemon_to_csv($name, $types, $img_url);
+
+	} catch (\Throwable $th) {
+			return $th->getMessage();
+	}
 }
 ?>
