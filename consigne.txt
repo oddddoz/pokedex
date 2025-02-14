@@ -1,19 +1,13 @@
-2025-02-10 11:23
+2025-02-14 12:44
 
 
-Créer un tableau vide dans une variable php.
+Ajouter une page pokemon.php (au singulier)
+- Aller sur cette page lors du clic sur une ligne d'un pokemon dans le tableau
+- Ajouter un parametre a la requete GET (via l'url) qui contient le nom du pokemon demandé
+- Faire une requête a l'api tiradex en utilisant ce parametre
+- Décoder les données du json et les mettre en page sur pokemon.php avec du html et un peu de css.
 
-Créer 2/3 object (tableaux associatifs) avec des clés et des valeurs pour stocker des joueurs de foot.
-Les champs attendu sont: 
-    - nom
-    - prenom
-    - poste
-    - club  
-
-Ajouter ces objets dans le tableau vide.
-
-Faire une boucle pour echo les informations de chaque joueur.
-
-Chaque joueur doit avoir sa propre div. 
-
-
+Ajouter la possibilité de supprimer un pokémon de notre équipe
+- Ajouter un bouton qui redirige vers index.php et faisant une requete http DELETE
+- Ajouter en parametre de la requete le nom du pokemon à retirer de l'equipe
+- Gérer la requete DELETE en php pour supprimer la ligne du CSV en fonction du nom du pokemon fourni dans la requête

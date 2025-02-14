@@ -20,11 +20,16 @@
             <tbody>
                 <?php
                     require 'pokemons.php';
+
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            $err_msg = addPokemon($_POST["name"]);
+                    }
+
                     $pokemons = getPokemons();
 
                     foreach ($pokemons as $pokemon) {
                         echo "<tr>";
-                        echo "<td><img src='https://img.pokemondb.net/sprites/home/normal/" . strtolower($pokemon[0]) . ".png' alt='" . $pokemon[0] . "'></td>";
+                        echo "<td><img src='$pokemon[3]' alt='" . $pokemon[0] . "'></td>";
                         echo "<td>" . $pokemon[0] . "</td>";
                         echo "<td>";
                         if ($pokemon[1]) {
@@ -36,12 +41,7 @@
                         echo "</td>";
                         echo "</tr>";
                     }
-                ?> 
-                <tr>
-                    <td><img src="https://img.pokemondb.net/sprites/home/normal/squirtle.png" alt="Squirtle"></td>
-                    <td>Squirtle</td>
-                    <td><span class="type water">Water</span></td>
-                </tr>
+                ?>  
             </tbody>
         </table>
         <form class="add-pokemon" action="index.php" method="post">
@@ -49,14 +49,12 @@
             <input type="text" id="name" name="name">
 
             <button type="submit">Add Pokemon</button>
-        </form>
-    </div>
-    <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $add_pokemon_msg = addPokemon($_POST["name"]);
-        } 
-        ?>
-
-        
+            </form>
+            <?php
+                if (isset($err_msg)) {
+                    echo "<p class='error'>$err_msg</p>";
+                }
+            ?>
+    </div>  
 </body>
 </html>

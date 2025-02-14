@@ -82,26 +82,31 @@ function addPokemon($name) {
 	  CURLOPT_HTTPHEADER => array(
 		 "Content-Type: application/json",
 		 "cache-control: no-cache"
-	  ),
+		),
+		CURLOPT_RETURNTRANSFER => true,
 	));
 
 	$response = curl_exec($curl);
 
 	$data = json_decode($response, true);
-	$name = data["name"];
-	$img_url = data["sprites"]["regular"];
+	$err = $data["status"]; 
+	
+	if ($err !== null) {
+		return "Pokemon not found";
+	}
+
+	$name = $data["name"]["fr"];
+	$img_url = $data["sprites"]["regular"];
 
 	$types = [];
-	foreach (data["types"] as $type) {
+	foreach ($data["types"] as $type) {
 		array_push($types, $type["name"]);		
 	}
 
-	print_r($data);
+	$file = fopen("pokemons.csv","a");
 
-//	$file = fopen("pokemons.csv","a");
+	fputcsv($file, [$name, $types[0], $types[1], $img_url]);
 
-//	fputcsv($file, [$name, $type1, $type2, $level]);
-
-//		fclose($file);
+	fclose($file);
 }
 ?>
