@@ -108,6 +108,21 @@ function save_pokemon_to_csv($name, $types, $img_url) {
 	fclose($file);
 }
 
+function display_pokemon_row($pokemon) {
+	echo "<tr>";
+	echo "<td><img src='$pokemon[3]' alt='" . $pokemon[0] . "'></td>";
+	echo "<td>" . $pokemon[0] . "</td>";
+	echo "<td>";
+	if ($pokemon[1]) {
+		echo "<span class='type " . strtolower(english_type_name($pokemon[1])) . "'>" . $pokemon[1] . "</span>";
+	}
+	if ($pokemon[2]) {
+		echo "<span class='type " . strtolower(english_type_name($pokemon[2])) . "'>" . $pokemon[2] . "</span>";
+	}
+	echo "</td>";
+	echo "</tr>";
+}
+
 function addPokemon($name) {
 	try {
 		$pokemon_exists = does_pokemon_exist($name);
@@ -121,7 +136,8 @@ function addPokemon($name) {
 		save_pokemon_to_csv($name, $types, $img_url);
 
 	} catch (\Throwable $th) {
-			return $th->getMessage();
+		// On intercepte l'exception (l'erreur) et on return son message
+		return $th->getMessage();
 	}
 }
 ?>
