@@ -58,10 +58,11 @@ function getPokemons() {
 	return $pokemons;
 }
 
-function addPokemon($name, $type1, $type2, $level) {
+function addPokemon($name) {
 	$pokemon_exists = false;
 
 	$pokemons = getPokemons();
+
 	foreach ($pokemons as $pokemon) {
 		if ($pokemon[0] == $name) {
 			$pokemon_exists = true;
@@ -73,10 +74,34 @@ function addPokemon($name, $type1, $type2, $level) {
 		return "Pokemon already exists";
 	}
 
-	$file = fopen("pokemons.csv","a");
+	$curl = curl_init();
 
-	fputcsv($file, [$name, $type1, $type2, $level]);
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => "https://tyradex.app/api/v1/pokemon/" . $name,
+	  CURLOPT_CUSTOMREQUEST => "GET",
+	  CURLOPT_HTTPHEADER => array(
+		 "Content-Type: application/json",
+		 "cache-control: no-cache"
+	  ),
+	));
 
-	fclose($file);
+	$response = curl_exec($curl);
+
+	$data = json_decode($response, true);
+	$name = data["name"];
+	$img_url = data["sprites"]["regular"];
+
+	$types = [];
+	foreach (data["types"] as $type) {
+		array_push($types, $type["name"]);		
+	}
+
+	print_r($data);
+
+//	$file = fopen("pokemons.csv","a");
+
+//	fputcsv($file, [$name, $type1, $type2, $level]);
+
+//		fclose($file);
 }
 ?>

@@ -52,15 +52,8 @@
         </form>
     </div>
     <?php
-        require 'pokemons.php';
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $add_pokemon_msg = addPokemon(
-                $_POST["name"],
-                $_POST["type1"],
-                $_POST["type2"],
-                $_POST["level"]
-            );
+            $add_pokemon_msg = addPokemon($_POST["name"]);
         } 
         ?>
 
