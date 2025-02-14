@@ -1,0 +1,19 @@
+2025-02-10 11:23
+
+
+Créer un tableau vide dans une variable php.
+
+Créer 2/3 object (tableaux associatifs) avec des clés et des valeurs pour stocker des joueurs de foot.
+Les champs attendu sont: 
+    - nom
+    - prenom
+    - poste
+    - club  
+
+Ajouter ces objets dans le tableau vide.
+
+Faire une boucle pour echo les informations de chaque joueur.
+
+Chaque joueur doit avoir sa propre div. 
+
+
