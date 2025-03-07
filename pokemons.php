@@ -68,6 +68,11 @@ function addPokemon($name, $db) {
 	}
 }
 
+function deletePokemon($name, $db) {
+	$query = $db->prepare("DELETE FROM pokemons WHERE name = :name");
+	$query->execute(["name" => $name]);
+}
+
 function retrieve_pokemon_data($name) {
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
@@ -116,6 +121,11 @@ function display_pokemon_row($pokemon) {
 		echo "<span class='type " . strtolower(english_type_name($type2)) . "'>" . $type2 . "</span>";
 	}
 	echo "</td>";
+	echo "<td>
+		<form action='index.php' method='post'>
+			<input type='hidden' name='delete' value='" . $name . "'>
+			<button type='submit'>Delete</button>
+		</form>";
 	echo "</tr>";
 }
 ?>

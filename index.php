@@ -14,7 +14,8 @@
                 <tr>
                     <th>Image</th>
                     <th>Name</th>
-                    <th>Type</th>
+                        <th>Type</th>
+                        <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,8 +25,16 @@
                     $db = connect_to_db();
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                            // On recupere la potentielle erreur
-                            $err_msg = addPokemon($_POST["name"], $db);
+                        if (isset($_POST["delete"])) {
+                                    deletePokemon($_POST["delete"], $db); 
+                        } else {
+                                $err_msg = addPokemon($_POST["name"], $db);
+                        }
+                    }
+
+
+                    if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+                        deletePokemon($_GET["name"], $db);
                     }
 
                     $pokemons = getPokemons($db);
