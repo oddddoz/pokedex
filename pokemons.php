@@ -79,7 +79,11 @@ function retrieve_pokemon_data($name) {
 			"header" => "Content-Type: application/json\r\n" .
 				"cache-control: no-cache\r\n",
 			"method" => "GET"
-		]	
+		],
+		"ssl" => [
+			"verify_peer" => false,
+			"verify_peer_name" => false
+		]
 	];
 
 	$context = stream_context_create($options);
