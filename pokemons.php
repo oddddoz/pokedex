@@ -73,18 +73,18 @@ function deletePokemon($name, $db) {
 }
 
 function retrieve_pokemon_data($name) {
-	$curl = curl_init();
-	curl_setopt_array($curl, array(
-	  CURLOPT_URL => "https://tyradex.app/api/v1/pokemon/" . $name,
-	  CURLOPT_CUSTOMREQUEST => "GET",
-	  CURLOPT_HTTPHEADER => array(
-		 "Content-Type: application/json",
-		 "cache-control: no-cache"
-		),
-		CURLOPT_RETURNTRANSFER => true,
-	));
+	$url = "https://tyradex.app/api/v1/pokemon/" . $name;
+	$options = [
+		"http" => [
+			"header" => "Content-Type: application/json\r\n" .
+				"cache-control: no-cache\r\n",
+			"method" => "GET"
+		]	
+	];
 
-	$response = curl_exec($curl);
+	$context = stream_context_create($options);
+	$response = file_get_contents($url, false, $context);
+
 	$data = json_decode($response, true);
 
 	if (!isset($data["pokedex_id"])) {
