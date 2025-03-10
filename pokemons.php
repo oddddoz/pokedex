@@ -27,7 +27,6 @@ function connect_to_db() {
 	return $db;
 }
 
-
 function getPokemons($db) {
     $query = $db->query("SELECT * FROM pokemons");
     $pokemons = $query->fetchAll();	

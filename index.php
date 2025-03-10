@@ -33,10 +33,6 @@
                     }
 
 
-                    if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
-                        deletePokemon($_GET["name"], $db);
-                    }
-
                     $pokemons = getPokemons($db);
 
                     foreach ($pokemons as $pokemon) {
