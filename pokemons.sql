@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS pokemons (
 
 CREATE TABLE IF NOT EXISTS pokemons_details (
     id SERIAL PRIMARY KEY,
-    pokemon_id INT NOT NULL,
+    pokemon_id INT UNSIGNED NOT NULL,
 
     height DECIMAL(4, 1) NOT NULL,
     weight DECIMAL(4, 1) NOT NULL,

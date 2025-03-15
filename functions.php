@@ -78,8 +78,8 @@ function add_pokemon($name, $db) {
 }
 
 function measurments_to_float($measurment) {
-	// "1.5 m" -> 1.5 or "45 kg" -> 45
-	return (float) explode(" ", $measurment)[0];
+	// "1,5 m" -> 1.5 or "4,5 kg" -> 4.5
+	return (float) str_replace(",", ".", explode(" ", $measurment)[0]);
 }
 
 function add_pokemon_details($pokemon, $db) {
