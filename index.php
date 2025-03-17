@@ -43,7 +43,7 @@
                     if (count($pokemons) == 0) {
                         echo "<tr><td colspan='3'>No pokemons found</td></tr>";
                     }
-                ?>  
+                ?>
             </tbody>
         </table>
     </div>  
