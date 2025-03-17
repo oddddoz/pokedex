@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS pokemons;
 DROP TABLE IF EXISTS pokemons_details;
+DROP TABLE IF EXISTS pokemons;
 
 CREATE TABLE IF NOT EXISTS pokemons (
     id INT UNSIGNED PRIMARY KEY,
@@ -24,5 +24,5 @@ CREATE TABLE IF NOT EXISTS pokemons_details (
     spe_def INTEGER NOT NULL,
     speed INTEGER NOT NULL,
 
-    FOREIGN KEY (pokemon_id) REFERENCES pokemons(id)
+    FOREIGN KEY (pokemon_id) REFERENCES pokemons(id) ON DELETE CASCADE
 );

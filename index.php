@@ -1,22 +1,11 @@
 <!DOCTYPE html>
 <?php
-require 'functions.php';
+    require 'functions.php';
 
-$db = connect_to_db();
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $err_msg = $_GET["err"] ?? null;
 
-    if (isset($_POST["delete"])) {
-        $id = $_POST["delete"];
-        delete_pokemon($id, $db);
-    }
-
-    if (isset($_POST["add"])) {
-        $name = $_POST["add"];
-        $err_msg = add_pokemon($name, $db);
-    }
-}
-
-$pokemons = get_pokemons($db);
+    $db = connect_to_db();
+    $pokemons = get_pokemons($db);
 ?>
 <html lang="en">
 <head>
@@ -28,18 +17,13 @@ $pokemons = get_pokemons($db);
 <body>
     <div class="pokedex">
         <h1>Pokédex</h1>
-        <form class="add-pokemon" action="index.php" method="post">
+        <form class="add-pokemon" action="actions/add_pokemon.php" method="post">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="add">
-
+            <input type="text" id="name" name="name">
             <button type="submit">Add Pokemon</button>
-    </form>
-            <?php
-                // Si on a une erreur, on l'affiche
-                if (isset($err_msg)) {
-                    echo "<p class='error'>$err_msg</p>";
-                }
-            ?>
+        </form>
+
+        <?php echo isset($err_msg) ? "<p class='error'>$err_msg</p>" : "";?>
 
         <table>
             <thead>

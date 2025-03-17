@@ -19,7 +19,7 @@ $pokemon = get_pokemon($name, $db);
     <div class="pokedex">
         <h1><?= htmlspecialchars($pokemon["name"]) ?><?= $pokemon["nickname"] ? " (" . htmlspecialchars($pokemon["nickname"]) . ")" : "" ?></h1>
 
-		<form action="update_pokemon_nickname.php" method="POST" class="nickname-form">
+		<form action="actions/update_pokemon_nickname.php" method="POST" class="nickname-form">
 			<input type="hidden" name="name" value="<?= htmlspecialchars($pokemon['name']) ?>">
 			
 			<label for="nickname">Surnom :</label>

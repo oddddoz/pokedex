@@ -134,8 +134,8 @@ function display_pokemon_table_row($pokemon) {
 	}
 	echo "</td>";
 	echo "<td>
-		<form action='index.php' method='post'>
-			<input type='hidden' name='delete' value='" . $id . "'>
+		<form action='actions/remove_pokemon.php' method='post'>
+			<input type='hidden' name='name' value='" . $name . "'>
 			<button type='submit'>Delete</button>
 		</form>";
 	echo "</tr>";
