@@ -1,5 +1,5 @@
 <?php
-require 'functions.php';
+require '../functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["name"]) && isset($_POST["nickname"])) {
     $name = $_POST["name"];
@@ -9,6 +9,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["name"]) && isset($_PO
 	update_nickname($name, $nickname, $db);
 
     // Redirection vers la page du Pokémon après mise à jour
-    header("Location: pokemon.php?name=" . $name);
+    header("Location: ../pokemon.php?name=" . $name);
     exit();
 }
